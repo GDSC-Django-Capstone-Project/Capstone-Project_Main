@@ -1,0 +1,48 @@
+#body{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.logo{
+    margin-top: 3rem;
+}
+.user{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: center;
+}
+.buttons{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.but1{
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+.form{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+.page{
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+}
+.form input{
+    margin-top: 0.6rem;
+    width:100%;
+}
+.label{
+    margin-top: 1rem;
+}
+.butt3{
+    margin-top: 1rem;
+}
+
+

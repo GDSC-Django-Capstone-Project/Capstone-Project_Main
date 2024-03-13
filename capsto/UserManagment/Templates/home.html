@@ -1,12 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Library Management System</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="script.js"></script>
+  <style>
+    #body{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+  }
+  .logo{
+      margin-top: 3rem;
+  }
+  .user{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content: center;
+  }
+  .buttons{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+  }
+  .but1{
+      margin-bottom: 10px;
+      text-decoration: none;
+  }
+  .form{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+  }
+  .page{
+      margin-top: 3rem;
+      margin-bottom: 4rem;
+  }
+  .form input{
+      margin-top: 0.6rem;
+      width:100%;
+  }
+  .label{
+      margin-top: 1rem;
+  }
+  .butt3{
+      margin-top: 1rem;
+  }
+    
+  </style>
+  <title>Home page</title>
 </head>
 <body>
-    <h1>Welcome to Library Management System</h1>
-    <a href="{% url 'login_as_student' %}"><button>Login as Student</button></a>
-    <a href="{% url 'login_as_admin' %}"><button>Login as Admin</button></a>
+<div id="body">
+  <div class="logo">
+    <h1><i class="fa-solid fa-book-open"></i> Library</h1>
+  </div>
+  <div class="user">
+    <h2>Select Profession</h2>
+  <div class="buttons">
+    <div class="but1"> <a href="{% url 'login_as_student' %}"><button>Login as Student</button></a></div>
+    <div class="but2"><a href="{% url 'login_as_admin' %}"><button>Login as Admin</button></a></div>
+  </div>
+  </div>  
+</div>
 </body>
 </html>

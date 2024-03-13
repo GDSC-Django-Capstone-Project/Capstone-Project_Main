@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Borrowing',
     'SearchandFilter',
     'ReviewandRate',
+    
 ]
 
 MIDDLEWARE = [

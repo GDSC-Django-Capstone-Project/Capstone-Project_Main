@@ -3,17 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Login as Student</title>
+    <style>
+        #body{
+          display:flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+      }
+      .logo{
+          margin-top: 3rem;
+      }
+      .user{
+          display:flex;
+          flex-direction:column;
+          align-items:center;
+          justify-content: center;
+      }
+      .buttons{
+          display:flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+      }
+      .but1{
+          margin-bottom: 10px;
+          text-decoration: none;
+      }
+      .form{
+          display:flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          box-sizing: border-box;
+      }
+      .page{
+          margin-top: 3rem;
+          margin-bottom: 4rem;
+      }
+      .form input{
+          margin-top: 0.6rem;
+          width:100%;
+      }
+      .label{
+          margin-top: 1rem;
+      }
+      .butt3{
+          margin-top: 1rem;
+      }
+        
+      </style>
 </head>
 <body>
-    <h2>Login as Student</h2>
+    <div class = "form">
+    <div class = "page"><h2>Login as Student</h2></div>
     <form method="post">
         {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username"><br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password"><br>
-        <button type="submit">Login</button>
+        <div class="label"><label for="user_name">User Name</label></div>
+        <div><input type="text" name="pass" id="user_name"></div>
+        <div class="label"><label for="pass">Password</label></div>
+        <div><input type="password" name="pass" id="pass"></div>
+        <div class = "butt3"><button type="submit">Login</button></div>
     </form>
-    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+    <div><p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p></div>
+</div>
 </body>
 </html>
