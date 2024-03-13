@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Reviews</title>
+</head>
+<body>
+    <h1>Book Reviews</h1>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <strong>User:</strong> {{ review.user.username }}<br>
+                <strong>Rating:</strong> {{ review.rating }}<br>
+                <strong>Comment:</strong> {{ review.comment }}<br>
+                <strong>Created at:</strong> {{ review.created_at }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
