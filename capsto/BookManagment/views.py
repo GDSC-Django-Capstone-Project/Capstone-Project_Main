@@ -1,12 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Book
-
+from .models import Book,BorrowedBook
 from .forms import BookForm
-#@login_required
-def student_dashboard(request):
+#from django.contrib.auth import authenticate, login, logout
+#from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+@login_required
+def studentdashboard(request):
     books = Book.objects.all()
-    return render(request, 'student_dashboard.html', {'books': books})
+    return render(request, 'studentdashboard.html', {'books': books})
+def admindashboard(request):
+    books = Book.objects.all()
+    return render(request, 'admindashboard.html', {'books': books})
 
 def book_list(request):
     books = Book.objects.all()
@@ -41,14 +46,9 @@ def delete_book(request, book_id):
         book.delete()
         return redirect('home')
     return render(request, 'delete_book.html', {'book': book})
-from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from .models import BorrowedBook,Book
-
+@login_required    
 def borrowed_books(request):
-    borrowed_books = BorrowedBook.objects.filter(returned=False)  # Filter only borrowed books
+    borrowed_books = BorrowedBook.objects.filter(user = request.user,returned=False)  # Filter only borrowed books
     returned_books = BorrowedBook.objects.filter(returned=True)  # Filter only returned books
     return render(request, 'borrowed_books.html', {'borrowed_books': borrowed_books, 'returned_books': returned_books})
 @login_required
@@ -58,10 +58,10 @@ def borrow_book(request, book_id):
     messages.success(request, 'Book borrowed successfully!')
     return redirect('student_dashboard')
 
-@login_required
+"""@login_required
 def borrowed_books(request):
     borrowed_books = BorrowedBook.objects.filter(user=request.user)
-    return render(request, 'borrowed_books.html', {'borrowed_books': borrowed_books})
+    return render(request, 'borrowed_books.html', {'borrowed_books': borrowed_books})"""
 
 @login_required
 def add_borrowed_book(request, book_id):
@@ -71,9 +71,9 @@ def add_borrowed_book(request, book_id):
     messages.success(request, 'Book added to borrowed list successfully!')
     return redirect('borrowed_books')
 
-def logout_view(request):
+"""def logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect('home')"""
 
 
 

@@ -1,9 +1,7 @@
 from django.contrib import admin
-from .models import Book
+from .models import Book,BorrowedBook
 
 admin.site.register(Book)
-
-from .models import BorrowedBook
 
 def mark_as_returned(modeladmin, request, queryset):
     queryset.update(returned=True)

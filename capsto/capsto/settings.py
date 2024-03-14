@@ -37,13 +37,28 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'BookManagment',
     'UserManagment',
-    'Borrowing',
+    'BookManagment',
     'SearchandFilter',
     'ReviewandRate',
     
 ]
+
+AUTH_USER_MODEL = 'UserManagment.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    
+    'UserManagment.custom_backend.CustomUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    
+]
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_SECURE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 3600  # 1 hour
+SESSION_SAVE_EVERY_REQUEST = True
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

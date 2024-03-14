@@ -59,7 +59,7 @@
 <body>
     <div id="registration">
         <h1>Register</h1>
-        <div class="form"><form action="{% url 'login_as_student' %}" method="post">
+        <div class="form"><form method="post" action="{% url 'login_as_student' %}">
             <div class="label"><label for="fname">First Name</label></div>
             <div><input type="text" name="fname" id="fname"></div>
             <div class="label"><label for="lname">Last Name</label></div>

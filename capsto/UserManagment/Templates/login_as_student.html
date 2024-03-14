@@ -58,10 +58,7 @@
     <div class = "page"><h2>Login as Student</h2></div>
     <form method="post">
         {% csrf_token %}
-        <div class="label"><label for="user_name">User Name</label></div>
-        <div><input type="text" name="pass" id="user_name"></div>
-        <div class="label"><label for="pass">Password</label></div>
-        <div><input type="password" name="pass" id="pass"></div>
+        {{Login_Form.as_p}}
         <div class = "butt3"><button type="submit">Login</button></div>
     </form>
     <div><p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p></div>

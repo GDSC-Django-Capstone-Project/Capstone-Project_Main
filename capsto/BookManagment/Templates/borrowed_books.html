@@ -11,13 +11,14 @@
             <li>
                 <strong>Book:</strong> {{ borrowed_book.book.title }}<br>
                 <strong>Borrowed Date:</strong> {{ borrowed_book.borrowed_date }}<br>
-                {% if borrowed_book.is_returned %}
+                {% if borrowed_book.returned %}
                     <strong>Returned Date:</strong> {{ borrowed_book.returned_date }}<br>
                 {% else %}
                     <strong>Status:</strong> Not Returned<br>
                 {% endif %}
             </li>
         {% endfor %}
+
     </ul>
 </body>
 </html>

@@ -1,51 +1,56 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserRegistrationForm
-from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
+from .forms import UserRegistrationForm,UserLoginForm
+from .models import CustomUser
 
 def home(request):
     return render(request, 'home.html')
 
-@api_view(['POST'])
 def login_as_student(request):
+    form = UserLoginForm()
     if request.method == 'POST':
-        username = request.data.get('username')
-        password = request.data.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None and user.role == user.Student_Role:
-            # If the user is authenticated and has the student role, create or retrieve a token
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key})
-        else:
-            return Response({'error': 'Invalid username or password.'}, status=status.HTTP_401_UNAUTHORIZED)
-    return Response({'error': 'Method not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        form = UserLoginForm(request, data = request.POST)
+        if form.is_valid():
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None : 
+                """and user.role == CustomUser.Student_Role.......
+            would have added the above...but i thought if the admin and superadmin wanted to borrow book they can ....no need to register as student"""
+                auth.login(request, user)
+                return redirect('studentdashboard')
+            else:
+                messages.error(request, 'Invalid username or password.')
+    contex = {"Login_Form": form}
+    return render(request, 'login_as_student.html',contex)
 
 def login_as_admin(request):
+    form = UserLoginForm()
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None and user.role == 'Admin':
-            login(request, user)
-            return redirect('admin_dashboard') # admin_dashboard.html should be created
-        else:
-            messages.error(request, 'Invalid username or password.')
-    return render(request, 'login_as_admin.html')
+        form = UserLoginForm(request, data = request.POST)
+        if form.is_valid():
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None and user.role == CustomUser.Admin_Role:
+                login(request, user)
+                return redirect('admindashboard') # admin_dashboard.html should be created
+            else:
+                messages.error(request, 'Invalid username or password.')
+    contex = {"Login_Form": form}
+    return render(request, 'login_as_admin.html',contex)
 
 def register(request):
+    form = UserRegistrationForm()
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
+            form.save()
             messages.success(request, 'Registration successful. Welcome!')
-            return redirect('login_as_student')
+            #return redirect('login_as_student')
     else:
         form = UserRegistrationForm()
     return render(request, 'register.html', {'form': form})

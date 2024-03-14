@@ -24,6 +24,6 @@ urlpatterns = [
     path('user/', include('UserManagment.urls')),
     path('book/', include('BookManagment.urls')),
     path('reviews/', include('ReviewandRate.urls')),
-    path('borrowing/', include('Borrowing.urls')),
+    #path('borrowing/', include('Borrowing.urls')),
     # Other URLs for your project
 ]
