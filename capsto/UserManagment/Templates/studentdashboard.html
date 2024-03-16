@@ -1,18 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Student Dashboard</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <title>Student Dashboard</title>
+        <script>
+          function updateSearch() {
+            var author = document.getElementById("author").value;
+            var genre = document.getElementById("genre").value;
+            var status = document.getElementById("status").value;
+            var searchInput = document.getElementById("search-input").value.toUpperCase();
+            var table = document.getElementById("search-table");
+            var rows = table.getElementsByTagName("tr");
+    
+          for (var i = 1; i < rows.length; i++) {
+            var title = rows[i].getElementsByTagName("td")[0].textContent.toUpperCase();
+            var authorValue = rows[i].getElementsByTagName("td")[1].textContent.toUpperCase();
+            var genreValue = rows[i].getElementsByTagName("td")[2].textContent.toUpperCase();
+            var statusValue = rows[i].getElementsByTagName("td")[3].textContent.toUpperCase();
+    
+            var titleMatch = title.indexOf(searchInput) > -1;
+            var authorMatch = author === "all" || authorValue === author.toUpperCase();
+            var genreMatch = genre === "all" || genreValue === genre.toUpperCase();
+            var statusMatch = status === "all" || statusValue === status.toUpperCase();
+    
+            var shouldDisplay = titleMatch && authorMatch && genreMatch && statusMatch;
+    
+            rows[i].style.display = shouldDisplay ? "" : "none";
+         } 
+      }
+      
+          function search() {
+            
+            var searchInput = document.getElementById("search-input").value;
+      
+            console.log("Performing search for: " + searchInput);
+          }
+          const rows = document.querySelectorAll('#search-table tr');
+        </script>
+       <style>
+        body {
+          background-color: #e7f9e7;
+          margin: 0;
+          padding: 0;
+          font-family: "Playfair Display", serif;
+          font-optical-sizing: auto;
+          font-weight: 500;
+          font-style: normal;
+        }
+        #search-input {
+          margin-bottom: 10px;
+        }
+        .search_book{
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .greet_student{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: row wrap;
+        }
+        #borrow{
+          margin: 10px 10px 25px 400px;
+        }
+        #greeting h1{
+            margin: 100px 0 50px 30px;
+            font-size: 3rem;
+            color: rgb(98, 24, 24);
+            font-style: italic;
+        }
+        #greeting{
+            display: flex;
+            align-items: center;
+            column-gap: 500px;
+          }
+        #choice{
+          margin-bottom: 50px;
+          display:flex;
+          flex-direction: row;
+          align-items: center;
+          column-gap: 300px;
+        }
+        #options{
+          display:flex;
+          flex-direction: row;
+          align-items: center;
+          column-gap: 30px;
+        }
+        #options label{
+            font-size: large;
+            font-weight: bold;
+            font-style: italic;
+          }
+        #search_content{
+          display:flex;
+          flex-direction: row;
+          align-items: center;
+          column-gap: 60px;
+          margin: 50px 20px;
+        }
+        #search-table th,td{
+          text-align: center;
+          padding:10px 100px 5px 50px;
+        }
+        .description {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          border: 1px solid #ccc;
+          padding: 10px;
+        }
+        tr:hover .description {
+          display: block;
+        }
+      </style>
 </head>
 <body>
-    <h2>Welcome, {{ user.username }}!</h2>
-    <h3>List of Books</h3>
-    <ul>
-        {% for book in books %}
-            <li>{{ book.title }} - {{ book.author }} - {{ book.genre }} - {{ book.status }}</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'borrowed_books' %}"><button>Borrowed Books</button></a>
-
-</body>
+    <div id="greeting">
+      <h1>Welcome, <span>{{ user.username }}</span></h1>
+      <a href="{% url 'borrowed_books' %}"><button>Borrowed Books</button></a>
+    </div>
+    <div class="search_book">
+      <div id="search_content">
+        <div class="search">
+          <input type="text" id="search-input" placeholder="Search..." oninput="updateSearch()">
+          <button onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div id="options">
+          <div class="auth">
+            <label for="author">Author: &nbsp;</label>
+            <select name="author" id="author" onchange="updateSearch()">
+              <option value="all">All</option>
+              <option value="James">James</option>
+              <option value="JS. Rowling">JS. Rowling</option>
+            </select>
+          </div>
+          <div class="genre">
+            <label for="genre">Genre: &nbsp;</label>
+            <select name="genre" id="genre" onchange="updateSearch()">
+              <option value="all">All</option>
+              <option value="action">Action</option>
+              <option value="comedy">Comedy</option>
+            </select>
+          </div>
+          <div class="status">
+            <label for="status">Status: &nbsp;</label>
+            <select name="status" id="status" onchange="updateSearch()">
+              <option value="all">All</option>
+              <option value="borrowed">Borrowed</option>
+              <option value="available">Available</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="books">
+        <table id="search-table">
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Status</th>
+          </tr>
+          {% for book in books %}
+          <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.genre }}</td>
+            <td>{{ book.status }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </body>
 </html>
+

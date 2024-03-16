@@ -4,59 +4,96 @@
     <meta charset="UTF-8">
     <title>Login as Student</title>
     <style>
-        #body{
+        body {
+          background-color: #e7f9e7;
+          margin: 0;
+          padding: 0;
+          font-family: "Playfair Display", serif;
+          font-optical-sizing: auto;
+          font-weight: 500;
+          font-style: normal;
           display:flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
-      }
-      .logo{
-          margin-top: 3rem;
-      }
-      .user{
-          display:flex;
-          flex-direction:column;
-          align-items:center;
-          justify-content: center;
-      }
-      .buttons{
-          display:flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-      }
-      .but1{
-          margin-bottom: 10px;
-          text-decoration: none;
-      }
-      .form{
-          display:flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          box-sizing: border-box;
-      }
-      .page{
-          margin-top: 3rem;
-          margin-bottom: 4rem;
-      }
-      .form input{
-          margin-top: 0.6rem;
-          width:100%;
-      }
-      .label{
-          margin-top: 1rem;
-      }
-      .butt3{
-          margin-top: 1rem;
-      }
+        }
+        .form{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         
-      </style>
+        }
+        #wupa{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+        }
+       .page{
+        margin-top: 3rem;
+        margin-bottom: 4rem;
+        }
+        .page h1{
+            font-size: 3em;
+            color: #385638;
+        }
+       .form input{
+        margin-top: 0.6rem;
+    
+       }
+       .label{
+        margin-top: 1rem;
+       }
+       .butt3 button{
+        align-items: center;
+        margin-top: 1rem;
+        padding: 5px 15px;
+        font-size: 0.8rem;
+        background-color: #0e400e;
+        color: #fff;
+        font-family: "Lora", serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        border-color: black;
+        border-radius: 5px;
+        cursor: pointer;
+       }
+       .label label{
+        font-style: italic;
+        font-weight: 200;
+       }
+       .input{
+        border-radius: 5px;
+        width:10px;
+        margin-top: 10px;
+        border-color: #3f583f;
+       }
+       #reg{
+        font-size: 1rem;
+        font-style: none;
+       }
+       #reg a{
+        font-style: italic;
+        color:black;
+        text-decoration: none;
+       }
+       #reg a:hover{
+        font-style: italic;
+        color:blue;
+       }
+        </style>
 </head>
 <body>
+    {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <p id="timer" class="alert alert-success float-center text-center text-clour">{{message}}</p>
+    {% endif %}
+    {% endfor %}
     <div class = "form">
     <div class = "page"><h2>Login as Student</h2></div>
-    <form method="post">
+    <form method="post" id = "wupa">
         {% csrf_token %}
         {{Login_Form.as_p}}
         <div class = "butt3"><button type="submit">Login</button></div>

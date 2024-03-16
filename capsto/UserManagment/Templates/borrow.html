@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Book and Provide Information</title>
+</head>
+<body>
+    <h1>Choose Book and Provide Information</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="book">Select Book:</label>
+        <select name="book" id="book">
+            {% for book in available_books %}
+            <option value="{{ book.id }}">{{ book.title }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="user">User:</label>
+        <input type="text" id="user" name="user" value="{{ request.user.username }}" readonly><br><br>
+        <button type="submit">Borrow Book</button>
+    </form>
+</body>
+</html>

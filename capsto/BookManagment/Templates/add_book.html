@@ -3,6 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Book</title>
+    <style>
+        body {
+          background-color: #e7f9e7;
+          margin: 0;
+          padding: 0;
+          font-family: "Playfair Display", serif;
+          font-optical-sizing: auto;
+          font-weight: 500;
+          font-style: normal;
+         }
+         #add_books{
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             justify-content: center;
+             row-gap: 20px;
+         }
+         #add_books h1{
+             margin-top: 70px;
+             font-size: 3rem;
+             color: rgb(77, 25, 25);
+         }
+         #form{
+             display: flex;
+             flex-direction: column;
+             row-gap: 20px;
+             margin: 20px 0;
+         }
+         #form label{
+             font-size: large;
+             font-weight: bold;
+         }
+         #form select{
+             font-family: "Lora", serif;
+             font-optical-sizing: auto;
+             font-weight: 400;
+             font-style: normal;
+             font-size: 15px; 
+         }
+         #save{
+             display: flex;
+             align-items: center;
+             column-gap: 20px;
+             margin-top: 20px;
+         }
+         #save button{
+             margin-bottom: 10px;
+             padding: 5px 20px;
+             background-color: #35b8bc;
+             color: #fff;
+             font-family: "Lora", serif;
+             font-optical-sizing: auto;
+             font-weight: 400;
+             font-style: normal;
+             border-color: black;
+             border-radius: 5px;
+             cursor: pointer;
+             transition: background-color 0.3s ease;
+         }
+         #save button:hover {
+             background-color: #1e3f1e;
+         }
+ 
+     </style>
 </head>
 <body>
     <h1>Add Book</h1>

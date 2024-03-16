@@ -8,6 +8,7 @@ urlpatterns = [
     #path('profile/', views.profile, name='profile'),
     path('studentdashboard/',include('BookManagment.urls')),
     path('admindashboard/',include('BookManagment.urls')),
+    path('borrow/',include('BookManagment.urls')),
     path('login/student/', views.login_as_student, name='login_as_student'),
     path('login/admin/', views.login_as_admin, name='login_as_admin'),
     path('register/', views.register, name='register'),

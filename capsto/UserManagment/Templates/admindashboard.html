@@ -3,40 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <!-- Add your CSS link here if you have any -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Admin_page</title>
+    <script>
+        function updateSearch() {
+            var author = document.getElementById("author").value;
+            var genre = document.getElementById("genre").value;
+            var status = document.getElementById("status").value;
+            var searchInput = document.getElementById("search-input").value.toUpperCase();
+            var table = document.getElementById("search-table");
+            var rows = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+                var title = rows[i].getElementsByTagName("td")[0].textContent.toUpperCase();
+                var authorValue = rows[i].getElementsByTagName("td")[1].textContent.toUpperCase();
+                var genreValue = rows[i].getElementsByTagName("td")[2].textContent.toUpperCase();
+                var statusValue = rows[i].getElementsByTagName("td")[3].textContent.toUpperCase();
+
+                var titleMatch = title.indexOf(searchInput) > -1;
+                var authorMatch = author === "all" || authorValue === author.toUpperCase();
+                var genreMatch = genre === "all" || genreValue === genre.toUpperCase();
+                var statusMatch = status === "all" || statusValue === status.toUpperCase();
+
+                var shouldDisplay = titleMatch && authorMatch && genreMatch && statusMatch;
+
+                rows[i].style.display = shouldDisplay ? "" : "none";
+            }
+        }
+
+        function search() {
+
+            var searchInput = document.getElementById("search-input").value;
+
+            console.log("Performing search for: " + searchInput);
+        }
+
+        function redirectToPage() {
+            window.location.href = "edit_book.html";
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var rows = document.querySelectorAll('tr[id^="book"]');
+            rows.forEach(function(row) {
+                row.addEventListener('click', redirectToPage);
+            });
+        });
+    </script>
+    <style>
+        body {
+            background-color: #e7f9e7;
+            margin: 0;
+            padding: 0;
+            font-family: "Playfair Display", serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .admin_page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 70px;
+        }
+
+        #greeting {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            column-gap: 700px;
+        }
+
+        #greeting h1 {
+            margin-right: 100px;
+            font-size: 3rem;
+            color: rgb(98, 24, 24);
+        }
+
+        #greeting button {
+            margin-left: 30px;
+            margin-bottom: 10px;
+            padding: 5px 20px;
+            background-color: #2b9b9f;
+            color: #fff;
+            font-family: "Lora", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            border-color: black;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #greeting button:hover {
+            background-color: rgb(90, 206, 206);
+        }
+
+        #search-input {
+            margin-bottom: 10px;
+        }
+
+        .search_book {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #choice {
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            column-gap: 300px;
+        }
+
+        #options {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            column-gap: 30px;
+        }
+
+        #options label {
+            font-size: large;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        #search_content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            column-gap: 70px;
+            margin: 50px 20px;
+        }
+
+        #search-table th,
+        td {
+            text-align: center;
+            padding: 10px 100px 5px 70px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Admin Dashboard</h1>
-    <h2>Book List</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Genre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for book in books %}
-            <tr>
-                <td>{{ book.title }}</td>
-                <td>{{ book.author }}</td>
-                <td>{{ book.genre }}</td>
-                <td>
-                    <a href="{% url 'edit_book' book.id %}">Edit</a>
-                    <form action="{% url 'delete_book' book.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <h2>Add New Book</h2>
-        <button type="submit">Add Book</button>
-    </form>
+    <div class="admin_page">
+        <div id="greeting">
+            <h1>Welcome, <span id="admin_name"></span></h1>
+            <a href="{% url 'add_book' %}"><button type="submit">Add Book</button></a>
+        </div>
+        <div class="search_book">
+            <div id="search_content">
+                <div class="search">
+                    <input type="text" id="search-input" placeholder="Search..." oninput="updateSearch()">
+                    <button onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <div id="options">
+                    <div class="auth">
+                        <label for="author">Author: &nbsp;</label>
+                        <select name="author" id="author" onchange="updateSearch()">
+                            <option value="all">All</option>
+                            <option value="James">James</option>
+                            <option value="JS. Rowling">JS. Rowling</option>
+                        </select>
+                    </div>
+                    <div class="genre">
+                        <label for="genre">Genre: &nbsp;</label>
+                        <select name="genre" id="genre" onchange="updateSearch()">
+                            <option value="all">All</option>
+                            <option value="action">Action</option>
+                            <option value="comedy">Comedy</option>
+                        </select>
+                    </div>
+                    <div class="status">
+                        <label for="status">Status: &nbsp;</label>
+                        <select name="status" id="status" onchange="updateSearch()">
+                            <option value="all">All</option>
+                            <option value="borrowed">Borrowed</option>
+                            <option value="available">Available</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="books">
+                <table id="search-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Genre</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in books %}
+                        <tr>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.genre }}</td>
+                            <td>
+                                <a href="{% url 'edit_book' book.id %}">Edit</a>
+                                <form action="{% url 'delete_book' book.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

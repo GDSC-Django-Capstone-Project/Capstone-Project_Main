@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Borrowed Books</title>
+    <style>
+        body {
+          background-color: #e7f9e7;
+          margin: 0;
+          padding: 0;
+          font-family: "Playfair Display", serif;
+          font-optical-sizing: auto;
+          font-weight: 500;
+          font-style: normal;
+        }
+    </style>
 </head>
 <body>
     <h1>Borrowed Books</h1>
@@ -20,5 +31,6 @@
         {% endfor %}
 
     </ul>
+    <a href="{% url 'borrow' %}"><button>Borrow Book</button></a>
 </body>
 </html>

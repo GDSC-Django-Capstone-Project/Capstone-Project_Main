@@ -1,62 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script src="script.js"></script>
-  <style>
-    #body{
-      display:flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-  }
-  .logo{
-      margin-top: 3rem;
-  }
-  .user{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content: center;
-  }
-  .buttons{
-      display:flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-  }
-  .but1{
-      margin-bottom: 10px;
-      text-decoration: none;
-  }
-  .form{
-      display:flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-  }
-  .page{
-      margin-top: 3rem;
-      margin-bottom: 4rem;
-  }
-  .form input{
-      margin-top: 0.6rem;
-      width:100%;
-  }
-  .label{
-      margin-top: 1rem;
-  }
-  .butt3{
-      margin-top: 1rem;
-  }
-    
-  </style>
-  <title>Home page</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Home page</title>
+    <style>
+      body {
+        background-color: #e7f9e7;
+        margin: 0;
+        padding: 0;
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+        font-weight: 500;
+        font-style: normal;
+      }
+  
+      #body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      
+      }
+  
+      .logo {
+        
+        text-align: center;
+      }
+  
+      .logo h1 {
+        color: #385638;
+        font-size: 4.5rem;
+      }
+  
+      .user {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+  
+      .user h2 {
+        color: #042904;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+  
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+  
+      .buttons button {
+        margin-bottom: 10px;
+        padding: 10px 20px;
+        font-size: 1.0rem;
+        background-color: #428f42;
+        color: #fff;
+        font-family: "Lora", serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+  
+      .buttons button:hover {
+        background-color: #296429;
+      }
+    </style>
+  </head>
+  <body>
 <body>
 <div id="body">
   <div class="logo">
