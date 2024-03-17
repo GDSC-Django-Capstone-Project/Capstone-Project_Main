@@ -16,15 +16,16 @@ class Book(models.Model):
         return self.title
     
 class BorrowedBook(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE,related_name = 'borrowed_books')
-    #user = models.ForeignKey(CustomUser, on_delete=models.CASCADE,related_name = 'borrowed_books')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    borrower = models.IntegerField()
+    #user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     borrowed_date = models.DateField(auto_now_add=True)
     returned_date = models.DateField(null=True, blank=True)
     returned = models.BooleanField(default=False)
 
 #  returned = models.BooleanField(default=False)
-    def __str__(self):
+    def __str__(self):  
         return f"{self.user.username} - {self.book.title}"
     
 

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,102 +51,202 @@
         });
     </script>
     <style>
-        body {
-            background-color: #e7f9e7;
-            margin: 0;
-            padding: 0;
-            font-family: "Playfair Display", serif;
-            font-optical-sizing: auto;
-            font-weight: 500;
-            font-style: normal;
-        }
+       body {
+  background-color: #e7f9e7;
+  margin: 0;
+  padding: 0;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
 
-        .admin_page {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 70px;
-        }
+#greeting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
 
-        #greeting {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            column-gap: 700px;
-        }
+#greeting h1 {
+  font-size: 3rem;
+  color:rgb(69, 22, 69);
+  font-style: italic;
+}
 
-        #greeting h1 {
-            margin-right: 100px;
-            font-size: 3rem;
-            color: rgb(98, 24, 24);
-        }
+#greeting button {
+  padding: 10px 20px;
+  background-color: #295f2b;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 1rem;
+  cursor: pointer;
+}
 
-        #greeting button {
-            margin-left: 30px;
-            margin-bottom: 10px;
-            padding: 5px 20px;
-            background-color: #2b9b9f;
-            color: #fff;
-            font-family: "Lora", serif;
-            font-optical-sizing: auto;
-            font-weight: 400;
-            font-style: normal;
-            border-color: black;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+.search_book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
 
-        #greeting button:hover {
-            background-color: rgb(90, 206, 206);
-        }
+#search_content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 30px;
+  column-gap: 50px;
+}
 
-        #search-input {
-            margin-bottom: 10px;
-        }
+.search {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
 
-        .search_book {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+#search-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+}
 
-        #choice {
-            margin-bottom: 50px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            column-gap: 300px;
-        }
+.search button {
+  padding: 10px;
+  background-color: #295f2b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
 
-        #options {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            column-gap: 30px;
-        }
+#options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 30px;
+}
 
-        #options label {
-            font-size: large;
-            font-weight: bold;
-            font-style: italic;
-        }
+#options label {
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-style: italic;
+}
 
-        #search_content {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            column-gap: 70px;
-            margin: 50px 20px;
-        }
+.auth select,
+.genre select,
+.status select {
+  padding: 5px 20px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
-        #search-table th,
-        td {
-            text-align: center;
-            padding: 10px 100px 5px 70px;
-            cursor: pointer;
-        }
+#books {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#search-table {
+  width:50%;
+  border-collapse:collapse;
+}
+
+#search-table th,
+#search-table td {
+  text-align: center;
+  padding: 10px 100px;
+}
+
+#search-table th {
+  background-color: #2a4b52;
+  color: white;
+  font-size:1.5rem;
+}
+
+#search-table td{
+  font-size: large;
+  font-weight: bold;
+  color: rgb(75, 11, 11);
+}
+#search-table tr {
+  position: relative;
+}
+
+#search-table tr::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  z-index: -1;
+}
+
+#search-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.description {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1;
+}
+#edit_delete{
+  display: flex;
+  column-gap: 5px;
+  align-items: center;
+}
+
+#edit_delete button{
+  background-color: #e5d4d4;
+  border-color: black;
+  border-radius: 5px;
+  padding:5px 8px;
+}
+
+tr:hover .description {
+  display: block;
+}
+
+@media screen and (max-width: 600px) {
+  #greeting {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #greeting h1 {
+    margin-bottom: 10px;
+  }
+
+  #greeting button {
+    margin-bottom: 20px;
+  }
+
+  #search_content {
+    flex-direction: column;
+  }
+
+  .search {
+    margin-bottom: 10px;
+  }
+
+  .auth,
+  .genre,
+  .status {
+    margin-bottom: 10px;
+  }
+}
     </style>
 </head>
 <body>
@@ -155,10 +256,11 @@
             <a href="{% url 'add_book' %}"><button type="submit">Add Book</button></a>
         </div>
         <div class="search_book">
+
             <div id="search_content">
                 <div class="search">
                     <input type="text" id="search-input" placeholder="Search..." oninput="updateSearch()">
-                    <button onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    &nbsp;&nbsp;<button onclick="search()"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <div id="options">
                     <div class="auth">
@@ -203,11 +305,11 @@
                             <td>{{ book.title }}</td>
                             <td>{{ book.author }}</td>
                             <td>{{ book.genre }}</td>
-                            <td>
+                            <td id="edit_delete">
                                 <a href="{% url 'edit_book' book.id %}">Edit</a>
                                 <form action="{% url 'delete_book' book.id %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit">Delete</button>
+                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
                                 </form>
                             </td>
                         </tr>

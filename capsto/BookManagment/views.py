@@ -51,7 +51,7 @@ def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.method == 'POST':
         borrowed_books = BorrowedBook.objects.filter(book=book)
-        if book.borrowed_books.exists():
+        if borrowed_books.exists():
             messages.error(request, "This book is borrowed and cannot be deleted.")
             return redirect('admindashboard')
         else:
@@ -61,7 +61,7 @@ def delete_book(request, book_id):
     return render(request, 'delete_book.html', {'book': book})
 @login_required    
 def borrowed_books(request):
-    borrowed_books = BorrowedBook.objects.filter(user = request.user,returned=False)  # Filter only borrowed books
+    borrowed_books = BorrowedBook.objects.filter(user = request.user.id,returned=False)  # Filter only borrowed books
     returned_books = BorrowedBook.objects.filter(returned=True)  # Filter only returned books
     return render(request, 'borrowed_books.html', {'borrowed_books': borrowed_books, 'returned_books': returned_books})
 """@login_required
@@ -70,7 +70,6 @@ def borrow_book(request, book_id):
     BorrowedBook.objects.create(book=book, user=request.user)
     messages.success(request, 'Book borrowed successfully!')
     return render(request, 'borrow.html', {'book': book})"""
-    
 @login_required
 def borrow_book(request):
     if request.method == 'POST':
@@ -80,14 +79,16 @@ def borrow_book(request):
             return redirect('studentdashboard')
         else:
             book_id = request.POST.get('book')
-            book = get_object_or_404(Book, id=book_id, status='available')
-            BorrowedBook.objects.create(book=book, user=request.user)
-            messages.success(request, 'Book borrowed successfully!')
-            return redirect('studentdashboard')
+            try:
+                book = Book.objects.get(id=book_id)
+                BorrowedBook.objects.create(book=book, user=request.user,borrower=request.user.id)
+                messages.success(request, 'Book borrowed successfully!')
+                return redirect('studentdashboard')
+            except Book.DoesNotExist:
+                messages.error(request, 'Invalid book selection.')
+                return redirect('studentdashboard')
 
-    
     return render(request, 'borrow.html', {'available_books': Book.objects.filter(status='available')})
-
 
 """def logout_view(request):
     logout(request)

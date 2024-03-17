@@ -3,20 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <title>Choose Book and Provide Information</title>
+    <style>
+    body {
+      background-color: #e7f9e7;
+      margin: 0;
+      padding: 0;
+      font-family: "Playfair Display", serif;
+      font-optical-sizing: auto;
+      font-weight: 500;
+      font-style: normal;
+    }
+    #borrow{
+        display:flex;
+        flex-direction: column;
+        row-gap: 20px;
+        margin-left: 20px;
+    }
+    #borrow h1{
+        font-style: italic;
+        margin: 100px 20px;
+        font-size:2.5rem ;
+        color: rgb(6, 116, 116);
+    }
+    #datalist label{
+        font-size: large;
+        font-weight: bold;
+    }
+    #user label{
+        font-size: large;
+        font-weight: bold;
+    }
+    #but button{
+    margin-top: 20px;
+      padding:5px 10px;
+      background-color: #3cbdc2;
+      color: #fff;
+      font-family: "Lora", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      border-color: black;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #but button:hover {
+      background-color: rgb(2, 76, 76);
+    }
+    #datalist input{
+        width:250px;
+        background-color: #e9edf0;
+        border-radius: 5px;
+        border-color:darkcyan;
+    }
+    #user input{
+        width:250px;
+        background-color: #e9edf0;
+        border-radius: 5px;
+        border-color:darkcyan;
+    }
+    
+    </style>
 </head>
 <body>
-    <h1>Choose Book and Provide Information</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="book">Select Book:</label>
-        <select name="book" id="book">
-            {% for book in available_books %}
-            <option value="{{ book.id }}">{{ book.title }}</option>
-            {% endfor %}
-        </select><br><br>
-        <label for="user">User:</label>
-        <input type="text" id="user" name="user" value="{{ request.user.username }}" readonly><br><br>
-        <button type="submit">Borrow Book</button>
-    </form>
+    <div id="borrow">
+        <div><h1>Choose Book and Provide Information</h1></div>
+        <div id="datalist">
+            <form method="post">
+                {% csrf_token %}
+                <label for="book">Select Book:</label>
+                <input list="book_lis" name="book">
+                <datalist id="book_lis">
+                    {% for book in available_books %}
+                    <option value="{{ book.id }}">{{ book.title }}</option>
+                    {% endfor %}
+                </datalist><br><br>
+        </div>
+        <div id="user">
+            <label for="user">User:</label>
+            <input type="text" id="user" name="user" value="{{ request.user.username }}" readonly><br><br>
+        </div>
+        <div id="but">
+            <button type="submit">Borrow Book</button>
+        </div>
+        </form>
+    </div>
 </body>
+
 </html>

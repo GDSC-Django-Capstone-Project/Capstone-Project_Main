@@ -13,24 +13,62 @@
           font-weight: 500;
           font-style: normal;
         }
+        #borrowed{
+            display:flex;
+            flex-direction: column;
+            row-gap: 20px;
+            align-items: flex-start;
+            margin-left: 30px;
+        }
+        #borrowed h1{
+            margin: 50px 0;
+            color: rgb(191, 132, 60);
+            font-size: 2.5rem;
+        }
+        #list{
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+        }
+        #borrowed button{
+            margin-top: 20px;
+            padding:5px 10px;
+            background-color: #298386;
+            color: #fff;
+            font-family: "Lora", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            border-color: black;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #borrowed button:hover {
+            background-color: rgb(2, 76, 76);
+        }
     </style>
 </head>
 <body>
-    <h1>Borrowed Books</h1>
+<div id="borrowed">
+    <div><h1>Borrowed Books</h1></div>
+    <div id="list">
     <ul>
         {% for borrowed_book in borrowed_books %}
             <li>
-                <strong>Book:</strong> {{ borrowed_book.book.title }}<br>
-                <strong>Borrowed Date:</strong> {{ borrowed_book.borrowed_date }}<br>
+                <div><strong><i>Book: &nbsp;</i></strong> {{ borrowed_book.book.title }}<br></div>
+                <div><strong><i>Borrowed Date:&nbsp;</i></strong> {{ borrowed_book.borrowed_date }}<br></div>
                 {% if borrowed_book.returned %}
-                    <strong>Returned Date:</strong> {{ borrowed_book.returned_date }}<br>
+                    <div><strong><i>Returned Date:&nbsp;</i></strong> {{ borrowed_book.returned_date }}<br></div>
                 {% else %}
-                    <strong>Status:</strong> Not Returned<br>
+                    <div><strong><i>Status:&nbsp;</i></strong> Not Returned<br></div>
                 {% endif %}
             </li>
         {% endfor %}
-
     </ul>
+</div>
     <a href="{% url 'borrow' %}"><button>Borrow Book</button></a>
+</div>
 </body>
 </html>
