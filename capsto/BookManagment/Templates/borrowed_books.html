@@ -49,6 +49,32 @@
             background-color: rgb(2, 76, 76);
         }
     </style>
+    <script>
+        document.getElementById('borrowBtn').addEventListener('click', function() {
+            var response = {
+                success: false,
+                message: "You cannot borrow more than 3 books."
+            };
+
+            if (response.success) {
+                showNotification('success', 'Book borrowed successfully!');
+            } else {
+                showNotification('danger', response.message);
+            }
+        });
+
+        function showNotification(type, message) {
+            var alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert');
+            alertDiv.classList.add('alert-' + type);
+            alertDiv.setAttribute('role', 'alert');
+            alertDiv.textContent = message;
+
+            var container = document.querySelector('.container');
+            container.insertBefore(alertDiv, document.getElementById('borrowBtn'));
+        }
+    </script>
+
 </head>
 <body>
 <div id="borrowed">
@@ -63,6 +89,7 @@
                     <div><strong><i>Returned Date:&nbsp;</i></strong> {{ borrowed_book.returned_date }}<br></div>
                 {% else %}
                     <div><strong><i>Status:&nbsp;</i></strong> Not Returned<br></div>
+                    <div><a href="{% url 'create_review' borrowed_book.id %}"><button>Create Review</button></a></div>
                 {% endif %}
             </li>
         {% endfor %}

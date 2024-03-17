@@ -1,0 +1,7 @@
+{% for review in reviews %}
+    <h3>Book: {{ review.borrowed_book.book.title }}</h3>
+    <h4>Rating: {{ review.rating }}</h4>
+    <p>Comment: {{ review.comment }}</p>
+{% empty %}
+    <p>No reviews yet.</p>
+{% endfor %}

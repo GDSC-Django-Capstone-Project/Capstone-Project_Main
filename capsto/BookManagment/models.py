@@ -18,7 +18,7 @@ class Book(models.Model):
 class BorrowedBook(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    borrower = models.IntegerField()
+    #borrower = models.IntegerField()
     #user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     borrowed_date = models.DateField(auto_now_add=True)
     returned_date = models.DateField(null=True, blank=True)
@@ -27,6 +27,16 @@ class BorrowedBook(models.Model):
 #  returned = models.BooleanField(default=False)
     def __str__(self):  
         return f"{self.user.username} - {self.book.title}"
+    
+class Review(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    borrowed_book = models.ForeignKey(BorrowedBook, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 11)])
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['user', 'borrowed_book']
     
 
 

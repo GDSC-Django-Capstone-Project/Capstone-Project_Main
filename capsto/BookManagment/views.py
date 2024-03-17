@@ -1,18 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
-from .models import Book,BorrowedBook
-from .forms import BookForm
+from .models import Book,BorrowedBook,Review
+from .forms import BookForm,ReviewForm
 #from django.contrib.auth import authenticate, login, logout
 #from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Avg
 @login_required
 def studentdashboard(request):
     books = Book.objects.all()
-    query = request.GET.get('q')
-    # If there is a search query, filter books by title containing the query
-    if query:
-        books = books.filter(title__icontains=query)
+    for book in books:
+        average_rating = Review.objects.filter(borrowed_book__book=book).aggregate(Avg('rating'))['rating__avg']
+        book.average_rating = round(average_rating, 1) if average_rating else None
+
 
     return render(request, 'studentdashboard.html', {'books': books})
 def admindashboard(request):
@@ -73,7 +74,7 @@ def borrow_book(request, book_id):
 @login_required
 def borrow_book(request):
     if request.method == 'POST':
-        num_borrowed_books = BorrowedBook.objects.filter(user=request.user).count() 
+        num_borrowed_books = BorrowedBook.objects.filter(user=request.user,book__status='available').count() 
         if num_borrowed_books >= 3:
             messages.error(request, 'You have already borrowed the maximum number of books allowed.')
             return redirect('studentdashboard')
@@ -81,7 +82,7 @@ def borrow_book(request):
             book_id = request.POST.get('book')
             try:
                 book = Book.objects.get(id=book_id)
-                BorrowedBook.objects.create(book=book, user=request.user,borrower=request.user.id)
+                BorrowedBook.objects.create(book=book, user=request.user)#,borrower=request.user.id
                 messages.success(request, 'Book borrowed successfully!')
                 return redirect('studentdashboard')
             except Book.DoesNotExist:
@@ -93,6 +94,21 @@ def borrow_book(request):
 """def logout_view(request):
     logout(request)
     return redirect('home')"""
+@login_required
+def create_review(request, borrowed_book_id):
+    borrowed_book = get_object_or_404(BorrowedBook, id=borrowed_book_id)
+    form = ReviewForm(request.POST or None)
+    if form.is_valid():
+        review = form.save(commit=False)
+        review.user = request.user
+        review.borrowed_book = borrowed_book
+        review.save()
+        return redirect('review_list')
+    return render(request, 'create_review.html', {'form': form})
 
+@login_required
+def review_list(request):
+    reviews = Review.objects.filter(user=request.user)
+    return render(request, 'review_list.html', {'reviews': reviews})
 
 

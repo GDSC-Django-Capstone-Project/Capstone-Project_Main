@@ -23,7 +23,4 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('user/', include('UserManagment.urls')),
     path('book/', include('BookManagment.urls')),
-    path('reviews/', include('ReviewandRate.urls')),
-    #path('borrowing/', include('Borrowing.urls')),
-    # Other URLs for your project
 ]

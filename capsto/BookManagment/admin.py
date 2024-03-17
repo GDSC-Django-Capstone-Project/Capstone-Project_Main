@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book,BorrowedBook
+from .models import Book,BorrowedBook,Review
 
 admin.site.register(Book)
 
@@ -13,3 +13,4 @@ class BorrowedBookAdmin(admin.ModelAdmin):
     actions = [mark_as_returned]
 
 admin.site.register(BorrowedBook, BorrowedBookAdmin)
+admin.site.register(Review)

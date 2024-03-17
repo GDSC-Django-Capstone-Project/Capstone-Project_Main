@@ -229,6 +229,7 @@
     <div id="greeting">
       <h1>Welcome, <span>{{ user.username }}</span></h1>
       <a href="{% url 'borrowed_books' %}"><button>Borrowed Books</button></a>
+      <a href="{% url 'review_list' %}"><button>Review List</button></a>
     </div>
     <div class="search_book">
       <div id="search_content">
@@ -270,6 +271,7 @@
             <th>Author</th>
             <th>Genre</th>
             <th>Status</th>
+            <th>Rate</th>
           </tr>
           {% for book in books %}
           <tr>
@@ -277,6 +279,7 @@
             <td>{{ book.author }}</td>
             <td>{{ book.genre }}</td>
             <td>{{ book.status }}</td>
+            <td>{{ book.average_rating }}</td>
           </tr>
           {% endfor %}
         </table>
