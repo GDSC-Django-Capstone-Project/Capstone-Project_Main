@@ -1,7 +1,50 @@
-{% for review in reviews %}
-    <h3>Book: {{ review.borrowed_book.book.title }}</h3>
-    <h4>Rating: {{ review.rating }}</h4>
-    <p>Comment: {{ review.comment }}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>review_list</title>
+    <style>
+        body {
+      background-color: #e7f9e7;
+      margin: 0;
+      padding: 0;
+      font-family: "Playfair Display", serif;
+      font-optical-sizing: auto;
+      font-weight: 500;
+      font-style: normal;
+    }
+    #rev{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 20px;
+    }
+    #rev h1{
+        font-size: 3rem;
+        margin: 10px  10px;
+        
+    }
+    .r{
+        font-size: large;
+    }
+    .r p{
+        font-size: 1.3rem;
+        font-style: italic;
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <div id="rev">
+    <div><h1>Reviews</h1></div>
+    {% for review in reviews %}
+    <div class="r"><p>Book:&nbsp; </p>{{ review.borrowed_book.book.title }}</div>
+    <div class="r"><p>Rating: &nbsp;</p>{{ review.rating }}</div>
+    <div class =r><p>Comment:&nbsp;</p> {{ review.comment }}</div>
 {% empty %}
     <p>No reviews yet.</p>
 {% endfor %}
+</div>
+</body>
+</html>

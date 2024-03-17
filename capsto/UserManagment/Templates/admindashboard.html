@@ -207,6 +207,10 @@
   column-gap: 5px;
   align-items: center;
 }
+#wii{
+    display: flex;
+    column-gap: 30px;
+}
 
 #edit_delete button{
   background-color: #e5d4d4;
@@ -252,8 +256,9 @@ tr:hover .description {
 <body>
     <div class="admin_page">
         <div id="greeting">
-            <h1>Welcome, <span id="admin_name"></span></h1>
-            <a href="{% url 'add_book' %}"><button type="submit">Add Book</button></a>
+            <h1>Welcome <span id="username">{{ user.username }}</span></h1>
+            <div id="wii"><a href="{% url 'add_book' %}"><button type="submit">Add Book</button></a>
+            <a href="{% url 'admin:index' %}" target="_blank"><button>Manage</button></a></div>
         </div>
         <div class="search_book">
 

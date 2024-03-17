@@ -133,6 +133,11 @@
           border: 1px solid #ccc;
           border-radius: 5px;
         }
+        #wuu{
+          display: flex;
+          column-gap: 30px;
+
+        }
         
         #books {
           margin-top: 20px;
@@ -227,9 +232,12 @@
 </head>
 <body>
     <div id="greeting">
-      <h1>Welcome, <span>{{ user.username }}</span></h1>
+      <h1>Welcome <span>{{ user.username }}</span></h1>
+      <div id="wuu">
       <a href="{% url 'borrowed_books' %}"><button>Borrowed Books</button></a>
       <a href="{% url 'review_list' %}"><button>Review List</button></a>
+      </div>
+    </div>
     </div>
     <div class="search_book">
       <div id="search_content">
