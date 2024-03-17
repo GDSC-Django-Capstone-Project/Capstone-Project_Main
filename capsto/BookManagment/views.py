@@ -74,11 +74,17 @@ def borrow_book(request, book_id):
 @login_required
 def borrow_book(request):
     if request.method == 'POST':
-        book_id = request.POST.get('book')
-        book = get_object_or_404(Book, id=book_id, status='available')
-        BorrowedBook.objects.create(book=book, user= request.user)
-        messages.success(request, 'Book borrowed successfully!')
-        return redirect('studentdashboard')
+        num_borrowed_books = BorrowedBook.objects.filter(user=request.user).count() 
+        if num_borrowed_books >= 3:
+            messages.error(request, 'You have already borrowed the maximum number of books allowed.')
+            return redirect('studentdashboard')
+        else:
+            book_id = request.POST.get('book')
+            book = get_object_or_404(Book, id=book_id, status='available')
+            BorrowedBook.objects.create(book=book, user=request.user)
+            messages.success(request, 'Book borrowed successfully!')
+            return redirect('studentdashboard')
+
     
     return render(request, 'borrow.html', {'available_books': Book.objects.filter(status='available')})
 
